@@ -1,0 +1,6 @@
+// 바벨 써줄 옵션 쓰기
+{
+    //"presets": [],
+    "presets": ["es2015", "minify"],
+    "plugins": []
+}

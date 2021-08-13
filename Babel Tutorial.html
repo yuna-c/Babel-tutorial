@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{ margin:0; padding:0; }
+        .wrap{ max-width:900px; margin:0 auto 80px; }
+        .wrap h1{ margin-bottom:20px; }
+        .wrap h2{ margin-bottom:10px; }
+        .wrap p{ margin-bottom:10px; }
+        .info-area{ margin:40px 0; font-size:14px; }
+        .info-area a{ line-height:1.5; text-decoration:none; color:#000; }
+        .info-area a:hover{ text-decoration:underline; }
+
+        .list-area li{ margin-bottom:30px; font-size:14px; list-style:none; }
+        .gray-box{ padding:20px; background-color:rgb(247, 246, 243); }
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="info-area">
+            <a href="https://babeljs.io/">바벨 웹사이트</a><br>
+            <a href="https://www.notion.so/Babel-Tutorial-b6785fb9034c47b3a8d1267edbf77b1a">바벨 최신버전 사용법</a><br>
+            <a href="https://www.youtube.com/watch?v=VeK3a29x1hE">유튜브 튜토리얼</a>
+        </div>
+
+        <h1>Babel Tutorial</h1>
+
+        <div class="list-area">
+            <ul>
+                <li>
+                    <h2>초기화</h2>
+                    <p>프로젝트 폴더에서,</p>
+                    <div class="gray-box">
+                        npm init -y
+                    </div>
+                </li>
+                <li>
+                    <h2>npm init -y</h2>
+                    <p>-g 옵션으로 글로벌로 설치하거나, 각 프로젝트마다 다른 babel 버전을 사용하는 경우 --save-dev 옵션으로.</p>
+                    <div class="gray-box">
+                        npm install --save-dev babel-cli
+                    </div>
+                </li>
+                <li>
+                    <h3>npm script로 자동화</h3>
+                    <p>package.json 파일을 수정</p>
+                    <div class="gray-box">
+                        "scripts": {<br>
+                            &nbsp;&nbsp;&nbsp;"build": "babel ./public/src -d ./public/lib -w"<br>
+                            //실제 개발 할 파일 public/lib
+                        },
+                    </div>
+                    <p>실행은 아래와 같이.</p>
+                    <div class="gray-box">
+                        npm run build
+                    </div>
+                    <p>./public/src 경로에 있는 원본 코드를 변환해서 ./public/lib 안에 생성.<br>
+                        이 상태에서 그냥 npm run build를 실행하면, 바벨은 그냥 src 안의 파일과 같은 파일을 lib에 생성한다.<br> 
+                        변환 작업을 위해서는 변환 옵션을 설정해야 하는데, 그 때 사용하는 파일이 아래의 .babelrc</p>
+                </li>
+                <li>
+                    <h2>.babelrc 파일로 설정</h2>
+                    <p>.babelrc를 생성하고 아래의 기본 구성 내용을 입력.<br>
+                        플러그인을 사용하지 않는다면 plugins는 생략해도 무방.
+                    </p>
+                    <div class="gray-box">
+                        {<br>
+                            &nbsp;&nbsp;&nbsp;"presets": [],<br>
+                            &nbsp;&nbsp;&nbsp;"plugins": []<br>
+                        }
+                    </div>
+                    <p>우리는 ECMA 2015 preset을 사용하기 위해 해당 preset을 설치</p>
+                    <div class="gray-box">
+                        npm install --save-dev babel-preset-es2015
+                    </div>
+                    <p>그리고 .babelrc 파일에 우리가 사용할 프리셋(설치한 프리셋)을 추가</p>
+                    <div class="gray-box">
+                        {<br>
+                            &nbsp;&nbsp;&nbsp;"presets": ["es2015"]<br>
+                        }
+                    </div>
+                    <p>여기까지 하면 기본적으로 잘 동작한다.</p>
+                </li>
+                <li>
+                    <h3>minify</h3>
+                    <p>lib에 압축된 버전의 파일을 생성하기 위해 minify 패키지를 설치.</p>
+                    <div class="gray-box">
+                        npm install --save-dev babel-preset-minify
+                    </div>
+                    <p>.babelrc 파일에도 추가</p>
+                    <div class="gray-box">
+                        {<br>
+                            &nbsp;&nbsp;&nbsp;"presets": ["es2015", "minify"]<br>
+                        }
+                    </div>
+                    <p>npm run build 수행 시 "Couldn't find intersection" 에러가 날 경우,<br>
+                        .babelrc 파일을 아래와 같이 바꾸어 주자.</p>
+                    <div class="gray-box">
+                        {<br>
+                            &nbsp;&nbsp;&nbsp;"presets": [<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"es2015",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;["minify", {builtIns: false, evaluate: false, mangle: false}]<br>
+                            &nbsp;&nbsp;&nbsp;]<br>
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
