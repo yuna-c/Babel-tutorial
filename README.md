@@ -1,2 +1,2 @@
 # babel
-https://yuna-c.github.io/babel/
+https://yuna-c.github.io/Babel-tutorial/
